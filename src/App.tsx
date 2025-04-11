@@ -20,6 +20,10 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import AssignmentPage from "./pages/AssignmentPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import NotFound from "./pages/NotFound";
+import CodingPage from "./pages/CodingPage";
+import AIAssistantPage from "./pages/AIAssistantPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import FacultyToolsPage from "./pages/FacultyToolsPage";
 
 const queryClient = new QueryClient();
 
@@ -76,11 +80,52 @@ const App = () => (
                 </ProtectedRoute>
               } 
             />
+            {/* New Routes */}
+            <Route 
+              path="/coding" 
+              element={
+                <ProtectedRoute>
+                  <CodingPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/coding/problem/:problemId" 
+              element={
+                <ProtectedRoute>
+                  <CodingPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/ai-assistant" 
+              element={
+                <ProtectedRoute>
+                  <AIAssistantPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin-dashboard" 
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminDashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/faculty-tools" 
+              element={
+                <ProtectedRoute allowedRoles={['faculty', 'admin']}>
+                  <FacultyToolsPage />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/admin" 
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
-                  <DashboardPage />
+                  <AdminDashboardPage />
                 </ProtectedRoute>
               } 
             />
