@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,6 +20,7 @@ import AssignmentPage from "./pages/AssignmentPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import NotFound from "./pages/NotFound";
 import CodingPage from "./pages/CodingPage";
+import CollaborativeCodingPage from "./pages/CollaborativeCodingPage";
 import AIAssistantPage from "./pages/AIAssistantPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import FacultyToolsPage from "./pages/FacultyToolsPage";
@@ -80,7 +80,6 @@ const App = () => (
                 </ProtectedRoute>
               } 
             />
-            {/* New Routes */}
             <Route 
               path="/coding" 
               element={
@@ -90,10 +89,10 @@ const App = () => (
               } 
             />
             <Route 
-              path="/coding/problem/:problemId" 
+              path="/coding/collaborative" 
               element={
                 <ProtectedRoute>
-                  <CodingPage />
+                  <CollaborativeCodingPage />
                 </ProtectedRoute>
               } 
             />
@@ -130,7 +129,6 @@ const App = () => (
               } 
             />
             <Route path="/unauthorized" element={<UnauthorizedPage />} />
-            {/* Catch all routes */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Users, MessageCircle, UserPlus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AIAssistantPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('codehint');
@@ -72,7 +73,9 @@ const AIAssistantPage: React.FC = () => {
                         Group session to solve data structures and algorithms challenges
                       </p>
                       <div className="flex justify-end">
-                        <Button size="sm">Join Room</Button>
+                        <Button size="sm" asChild>
+                          <Link to="/coding/collaborative">Join Room</Link>
+                        </Button>
                       </div>
                     </div>
                     
@@ -85,16 +88,20 @@ const AIAssistantPage: React.FC = () => {
                         Collaborative session for the group project on React and Node.js
                       </p>
                       <div className="flex justify-end">
-                        <Button size="sm">Join Room</Button>
+                        <Button size="sm" asChild>
+                          <Link to="/coding/collaborative">Join Room</Link>
+                        </Button>
                       </div>
                     </div>
                   </div>
                 </CardContent>
                 
                 <CardFooter className="border-t pt-4">
-                  <Button className="w-full">
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Create New Room
+                  <Button className="w-full" asChild>
+                    <Link to="/coding/collaborative">
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Create New Room
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -133,7 +140,9 @@ const AIAssistantPage: React.FC = () => {
                               <p className="text-xs text-muted-foreground">React, Node.js</p>
                             </div>
                           </div>
-                          <Button size="sm" variant="outline">Request</Button>
+                          <Button size="sm" variant="outline" asChild>
+                            <Link to="/coding/collaborative">Request</Link>
+                          </Button>
                         </div>
                         
                         <div className="flex items-center justify-between">
@@ -146,7 +155,9 @@ const AIAssistantPage: React.FC = () => {
                               <p className="text-xs text-muted-foreground">Python, Django</p>
                             </div>
                           </div>
-                          <Button size="sm" variant="outline">Request</Button>
+                          <Button size="sm" variant="outline" asChild>
+                            <Link to="/coding/collaborative">Request</Link>
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -164,9 +175,11 @@ const AIAssistantPage: React.FC = () => {
                 </CardContent>
                 
                 <CardFooter className="border-t pt-4">
-                  <Button className="w-full" variant="outline">
-                    <Users className="h-4 w-4 mr-2" />
-                    Find Programming Partners
+                  <Button className="w-full" variant="outline" asChild>
+                    <Link to="/coding/collaborative">
+                      <Users className="h-4 w-4 mr-2" />
+                      Find Programming Partners
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>

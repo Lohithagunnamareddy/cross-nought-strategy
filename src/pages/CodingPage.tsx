@@ -7,6 +7,7 @@ import ProblemInterface from '@/components/coding/ProblemInterface';
 import OnlineCompiler from '@/components/coding/OnlineCompiler';
 import CodingTrack from '@/components/coding/CodingTrack';
 import { useAuth } from '@/hooks/useAuth';
+import CodeHintAssistant from '@/components/ai/CodeHintAssistant';
 
 // Mock data for the coding tracks
 const mockTrackData = {
@@ -112,19 +113,34 @@ const CodingPage: React.FC = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [problemId, setProblemId] = useState<string | null>(null);
+  const [showAiAssistant, setShowAiAssistant] = useState(false);
   
   const isInstructor = user?.role === 'faculty' || user?.role === 'admin';
   
+  const handleProblemSelect = (id: string) => {
+    setProblemId(id);
+    setShowAiAssistant(true); // Show AI assistant when problem is selected
+  };
+  
   const renderContent = () => {
     if (problemId) {
-      return <ProblemInterface problemId={problemId} />;
+      return (
+        <div className="space-y-6">
+          <ProblemInterface problemId={problemId} />
+          {showAiAssistant && (
+            <div className="mt-6">
+              <CodeHintAssistant />
+            </div>
+          )}
+        </div>
+      );
     }
     
     switch (activeTab) {
       case 'dashboard':
         return <ProgressDashboard userId={user?.id} />;
       case 'problems':
-        return <CodingTrack {...mockTrackData} />;
+        return <CodingTrack {...mockTrackData} onProblemSelect={handleProblemSelect} />;
       case 'compiler':
         return <OnlineCompiler />;
       default:

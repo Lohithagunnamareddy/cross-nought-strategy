@@ -28,6 +28,7 @@ app.use('/api/materials', require('./routes/materials'));
 app.use('/api/assignments', require('./routes/assignments'));
 app.use('/api/submissions', require('./routes/submissions'));
 app.use('/api/attendance', require('./routes/attendance'));
+app.use('/api/coding', require('./routes/coding')); // Add the new coding routes
 // Add other routes as needed
 // app.use('/api/users', require('./routes/users'));
 // app.use('/api/profiles', require('./routes/profiles'));

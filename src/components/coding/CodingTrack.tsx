@@ -33,6 +33,7 @@ export interface CodingTrackProps {
   sections: TrackSection[];
   totalProblems: number;
   solvedProblems: number;
+  onProblemSelect?: (problemId: string) => void;
 }
 
 const getDifficultyColor = (difficulty: string) => {
@@ -51,8 +52,15 @@ const CodingTrack: React.FC<CodingTrackProps> = ({
   progress,
   sections,
   totalProblems,
-  solvedProblems
+  solvedProblems,
+  onProblemSelect
 }) => {
+  const handleProblemClick = (problemId: string) => {
+    if (onProblemSelect) {
+      onProblemSelect(problemId);
+    }
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -138,12 +146,10 @@ const CodingTrack: React.FC<CodingTrackProps> = ({
                       <Button 
                         size="sm" 
                         variant={problem.isCompleted ? "outline" : "default"}
-                        asChild
+                        onClick={() => handleProblemClick(problem.id)}
                       >
-                        <Link to={`/coding/problem/${problem.id}`}>
-                          {problem.isCompleted ? 'Revisit' : 'Solve'}
-                          <ChevronRight className="h-4 w-4 ml-1" />
-                        </Link>
+                        {problem.isCompleted ? 'Revisit' : 'Solve'}
+                        <ChevronRight className="h-4 w-4 ml-1" />
                       </Button>
                     )}
                   </div>
