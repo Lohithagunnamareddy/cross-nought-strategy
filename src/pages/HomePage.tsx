@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/hooks/useAuth';
-import { BookOpen, Users, Award, FileText, Calendar } from 'lucide-react';
+import { BookOpen, Users, Award, FileText, Calendar, Code, BrainCircuit, MessageCircle } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const { user } = useAuth();
@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Welcome to Campus Bridge</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Your comprehensive learning management system designed for students, faculty, and administrators.
+            Your comprehensive learning management system with coding platform and AI assistants.
           </p>
           
           {!user && (
@@ -56,6 +56,42 @@ const HomePage: React.FC = () => {
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center gap-2">
+                    <Code className="h-6 w-6 text-primary" />
+                    <CardTitle>Coding Platform</CardTitle>
+                  </div>
+                  <CardDescription>Practice coding skills</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>Solve problems, track your progress, and improve your programming skills.</p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" asChild>
+                    <Link to="/coding">Open Coding Platform</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <BrainCircuit className="h-6 w-6 text-primary" />
+                    <CardTitle>AI Assistant</CardTitle>
+                  </div>
+                  <CardDescription>Get AI-powered help</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>Access code hints, reviews, job recommendations, and more with AI assistance.</p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" asChild>
+                    <Link to="/ai-assistant">Open AI Assistant</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
                     <FileText className="h-6 w-6 text-primary" />
                     <CardTitle>Assignments</CardTitle>
                   </div>
@@ -67,6 +103,24 @@ const HomePage: React.FC = () => {
                 <CardFooter>
                   <Button className="w-full" asChild>
                     <Link to="/dashboard">View Assignments</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="h-6 w-6 text-primary" />
+                    <CardTitle>Collaborative Coding</CardTitle>
+                  </div>
+                  <CardDescription>Code with others in real-time</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>Join coding rooms to collaborate on problems and projects with peers.</p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" asChild>
+                    <Link to="/coding/collaborative">Start Collaborating</Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -92,7 +146,7 @@ const HomePage: React.FC = () => {
             
             {(user.role === 'faculty' || user.role === 'admin') && (
               <div className="mt-10">
-                <h2 className="text-2xl font-bold mb-6">Faculty Tools</h2>
+                <h2 className="text-2xl font-bold mb-6">Faculty & Admin Tools</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Card className="hover:shadow-lg transition-shadow">
                     <CardHeader>
@@ -116,16 +170,16 @@ const HomePage: React.FC = () => {
                     <CardHeader>
                       <div className="flex items-center gap-2">
                         <Award className="h-6 w-6 text-primary" />
-                        <CardTitle>Grading</CardTitle>
+                        <CardTitle>Coding Analytics</CardTitle>
                       </div>
-                      <CardDescription>Review and grade assignments</CardDescription>
+                      <CardDescription>Analyze student coding performance</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p>Grade assignments, provide feedback, and manage academic scores.</p>
+                      <p>View leaderboards, track placement readiness, and analyze coding metrics.</p>
                     </CardContent>
                     <CardFooter>
                       <Button className="w-full" asChild>
-                        <Link to="/dashboard">Go to Grading</Link>
+                        <Link to="/admin-dashboard">View Analytics</Link>
                       </Button>
                     </CardFooter>
                   </Card>
@@ -150,24 +204,24 @@ const HomePage: React.FC = () => {
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <FileText className="h-6 w-6 text-primary" />
-                  <CardTitle>Assignment Management</CardTitle>
+                  <Code className="h-6 w-6 text-primary" />
+                  <CardTitle>Coding Platform</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <p>Submit assignments, receive grades and feedback, and keep track of deadlines all in one place.</p>
+                <p>Practice coding with a built-in compiler, solve problems across different tracks, and improve your programming skills.</p>
               </CardContent>
             </Card>
             
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <Users className="h-6 w-6 text-primary" />
-                  <CardTitle>Interactive Learning</CardTitle>
+                  <BrainCircuit className="h-6 w-6 text-primary" />
+                  <CardTitle>AI-Powered Learning</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <p>Engage with instructors and peers through discussions, collaborative projects, and real-time feedback.</p>
+                <p>Get personalized hints, code reviews, and job recommendations powered by advanced AI assistance.</p>
               </CardContent>
             </Card>
           </div>

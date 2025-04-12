@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Menu, LogOut, User } from 'lucide-react';
+import { Menu, LogOut, User, Code, BrainCircuit } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,8 +36,20 @@ const Navbar: React.FC = () => {
           {user ? (
             <>
               <Link to="/dashboard" className="text-gray-700 hover:text-primary font-medium">Dashboard</Link>
+              <Link to="/courses" className="text-gray-700 hover:text-primary font-medium">Courses</Link>
+              <Link to="/coding" className="text-gray-700 hover:text-primary font-medium flex items-center">
+                <Code className="h-4 w-4 mr-1" />
+                Coding
+              </Link>
+              <Link to="/ai-assistant" className="text-gray-700 hover:text-primary font-medium flex items-center">
+                <BrainCircuit className="h-4 w-4 mr-1" />
+                AI Assistant
+              </Link>
               {user.role === 'admin' && (
                 <Link to="/admin" className="text-gray-700 hover:text-primary font-medium">Admin</Link>
+              )}
+              {user.role === 'faculty' && (
+                <Link to="/faculty-tools" className="text-gray-700 hover:text-primary font-medium">Faculty</Link>
               )}
             </>
           ) : (
@@ -91,9 +103,29 @@ const Navbar: React.FC = () => {
                   <DropdownMenuItem>
                     <Link to="/dashboard" className="w-full">Dashboard</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/courses" className="w-full">Courses</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/coding" className="w-full">
+                      <Code className="h-4 w-4 mr-2" />
+                      Coding Platform
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/ai-assistant" className="w-full">
+                      <BrainCircuit className="h-4 w-4 mr-2" />
+                      AI Assistant
+                    </Link>
+                  </DropdownMenuItem>
                   {user.role === 'admin' && (
                     <DropdownMenuItem>
                       <Link to="/admin" className="w-full">Admin</Link>
+                    </DropdownMenuItem>
+                  )}
+                  {user.role === 'faculty' && (
+                    <DropdownMenuItem>
+                      <Link to="/faculty-tools" className="w-full">Faculty Tools</Link>
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem>
