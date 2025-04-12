@@ -229,9 +229,9 @@ const JobMatchRecommender: React.FC<JobMatchRecommenderProps> = ({ userId }) => 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All matches</SelectItem>
-                <SelectItem value="high">High match (>80%)</SelectItem>
+                <SelectItem value="high">High match (&gt;80%)</SelectItem>
                 <SelectItem value="medium">Medium match (60-80%)</SelectItem>
-                <SelectItem value="low">Low match (<60%)</SelectItem>
+                <SelectItem value="low">Low match (&lt;60%)</SelectItem>
               </SelectContent>
             </Select>
           </div>
