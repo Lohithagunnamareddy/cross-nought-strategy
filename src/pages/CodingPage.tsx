@@ -26,7 +26,7 @@ const mockTrackData = {
         {
           id: 'prob1',
           title: 'Two Sum',
-          difficulty: 'easy',
+          difficulty: 'easy' as const,
           points: 10,
           tags: ['arrays', 'hash table'],
           isCompleted: true,
@@ -35,7 +35,7 @@ const mockTrackData = {
         {
           id: 'prob2',
           title: 'Valid Anagram',
-          difficulty: 'easy',
+          difficulty: 'easy' as const,
           points: 10,
           tags: ['strings', 'sorting'],
           isCompleted: true,
@@ -44,7 +44,7 @@ const mockTrackData = {
         {
           id: 'prob3',
           title: 'Container With Most Water',
-          difficulty: 'medium',
+          difficulty: 'medium' as const,
           points: 20,
           tags: ['arrays', 'two pointers'],
           isCompleted: false,
@@ -53,7 +53,7 @@ const mockTrackData = {
         {
           id: 'prob4',
           title: 'Group Anagrams',
-          difficulty: 'medium',
+          difficulty: 'medium' as const,
           points: 20,
           tags: ['strings', 'hash table'],
           isCompleted: false,
@@ -70,7 +70,7 @@ const mockTrackData = {
         {
           id: 'prob5',
           title: 'Reverse Linked List',
-          difficulty: 'easy',
+          difficulty: 'easy' as const,
           points: 15,
           tags: ['linked list'],
           isCompleted: true,
@@ -79,7 +79,7 @@ const mockTrackData = {
         {
           id: 'prob6',
           title: 'Detect Cycle',
-          difficulty: 'medium',
+          difficulty: 'medium' as const,
           points: 20,
           tags: ['linked list', 'two pointers'],
           isCompleted: false,
@@ -88,7 +88,7 @@ const mockTrackData = {
         {
           id: 'prob7',
           title: 'Merge Two Sorted Lists',
-          difficulty: 'easy',
+          difficulty: 'easy' as const,
           points: 15,
           tags: ['linked list', 'recursion'],
           isCompleted: false,
@@ -97,7 +97,7 @@ const mockTrackData = {
         {
           id: 'prob8',
           title: 'LRU Cache',
-          difficulty: 'hard',
+          difficulty: 'hard' as const,
           points: 30,
           tags: ['linked list', 'hash table'],
           isCompleted: false,

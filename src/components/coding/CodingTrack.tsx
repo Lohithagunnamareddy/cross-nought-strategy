@@ -7,7 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { BookOpen, CheckCircle, ChevronRight, Code, FileText, Lock, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-interface Problem {
+export interface Problem {
   id: string;
   title: string;
   difficulty: 'easy' | 'medium' | 'hard';
@@ -17,7 +17,7 @@ interface Problem {
   isLocked: boolean;
 }
 
-interface TrackSection {
+export interface TrackSection {
   id: string;
   title: string;
   description: string;
@@ -25,7 +25,7 @@ interface TrackSection {
   progress: number;
 }
 
-interface CodingTrackProps {
+export interface CodingTrackProps {
   trackId: string;
   title: string;
   description: string;
