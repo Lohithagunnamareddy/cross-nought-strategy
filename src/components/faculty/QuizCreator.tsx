@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/use-toast';
+import { Badge } from '@/components/ui/badge';
 
 interface QuizQuestion {
   id: string;
@@ -37,7 +37,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const { toast } = useToast();
 
-  // Add new question
   const addQuestion = (type: 'multiple' | 'single' | 'truefalse' | 'text') => {
     const newQuestion: QuizQuestion = {
       id: `q${Date.now()}`,
@@ -47,7 +46,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
       points: 10
     };
 
-    // Add default options based on question type
     if (type === 'multiple' || type === 'single') {
       newQuestion.options = [
         { id: `o${Date.now()}-1`, text: '', isCorrect: false },
@@ -63,17 +61,14 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     setQuestions([...questions, newQuestion]);
   };
 
-  // Update question text
   const updateQuestionText = (questionId: string, text: string) => {
     setQuestions(questions.map(q => q.id === questionId ? { ...q, question: text } : q));
   };
 
-  // Update question points
   const updateQuestionPoints = (questionId: string, points: number) => {
     setQuestions(questions.map(q => q.id === questionId ? { ...q, points } : q));
   };
 
-  // Add new option to a question
   const addOption = (questionId: string) => {
     setQuestions(questions.map(q => {
       if (q.id === questionId) {
@@ -86,7 +81,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     }));
   };
 
-  // Update option text
   const updateOptionText = (questionId: string, optionId: string, text: string) => {
     setQuestions(questions.map(q => {
       if (q.id === questionId) {
@@ -99,18 +93,15 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     }));
   };
 
-  // Toggle option correctness
   const toggleOptionCorrect = (questionId: string, optionId: string) => {
     setQuestions(questions.map(q => {
       if (q.id === questionId) {
         if (q.type === 'single' || q.type === 'truefalse') {
-          // For single choice, ensure only one option is selected
           return {
             ...q,
             options: q.options.map(o => ({ ...o, isCorrect: o.id === optionId }))
           };
         } else {
-          // For multiple choice, toggle the selected option
           return {
             ...q,
             options: q.options.map(o => o.id === optionId ? { ...o, isCorrect: !o.isCorrect } : o)
@@ -121,21 +112,17 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     }));
   };
 
-  // Update text answer
   const updateTextAnswer = (questionId: string, answer: string) => {
     setQuestions(questions.map(q => q.id === questionId ? { ...q, correctAnswer: answer } : q));
   };
 
-  // Delete a question
   const deleteQuestion = (questionId: string) => {
     setQuestions(questions.filter(q => q.id !== questionId));
   };
 
-  // Delete an option
   const deleteOption = (questionId: string, optionId: string) => {
     setQuestions(questions.map(q => {
       if (q.id === questionId) {
-        // Don't delete if there are only 2 options left
         if (q.options.length <= 2) {
           toast({
             title: "Cannot delete option",
@@ -153,9 +140,7 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     }));
   };
 
-  // Save quiz
   const saveQuiz = () => {
-    // Basic validation
     if (!quizTitle.trim()) {
       toast({
         title: "Missing title",
@@ -176,7 +161,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
       return;
     }
 
-    // Validate questions
     const invalidQuestions = questions.filter(q => !q.question.trim());
     if (invalidQuestions.length > 0) {
       toast({
@@ -188,7 +172,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
       return;
     }
 
-    // Validate options
     const invalidOptions = questions.some(q => 
       q.type !== 'text' && (
         q.options.some(o => !o.text.trim()) || 
@@ -206,7 +189,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
       return;
     }
 
-    // Validate text answers
     const invalidTextAnswers = questions.some(q => 
       q.type === 'text' && (!q.correctAnswer || !q.correctAnswer.trim())
     );
@@ -221,7 +203,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
       return;
     }
 
-    // Simulate saving
     setIsSaving(true);
     setTimeout(() => {
       setIsSaving(false);
@@ -232,7 +213,6 @@ const QuizCreator: React.FC<QuizCreatorProps> = ({ courseId }) => {
     }, 1500);
   };
 
-  // Calculate total points
   const totalPoints = questions.reduce((sum, q) => sum + q.points, 0);
 
   return (

@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
@@ -353,6 +354,215 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config]
 }
 
+// Line Chart Component
+interface LineChartProps {
+  data: any[];
+  categories: string[];
+  index: string;
+  colors?: string[];
+  valueFormatter?: (value: number) => string;
+  showLegend?: boolean;
+  showGridLines?: boolean;
+}
+
+const LineChart: React.FC<LineChartProps> = ({
+  data,
+  categories,
+  index,
+  colors = ["#2563eb", "#16a34a", "#ef4444"],
+  valueFormatter = (value) => `${value}`,
+  showLegend = true,
+  showGridLines = true,
+}) => {
+  const chartConfig: ChartConfig = React.useMemo(() => {
+    return categories.reduce((config, category, idx) => {
+      return {
+        ...config,
+        [category]: {
+          label: category,
+          color: colors[idx % colors.length],
+        },
+      };
+    }, {});
+  }, [categories, colors]);
+
+  return (
+    <ChartContainer config={chartConfig} className="h-full w-full">
+      <RechartsPrimitive.LineChart data={data}>
+        {showGridLines && (
+          <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+        )}
+        <RechartsPrimitive.XAxis
+          dataKey={index}
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+        />
+        <RechartsPrimitive.YAxis
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={valueFormatter}
+        />
+        {showLegend && (
+          <ChartLegend
+            content={<ChartLegendContent />}
+            verticalAlign="bottom"
+            height={40}
+          />
+        )}
+        <ChartTooltip
+          content={
+            <ChartTooltipContent
+              formatter={(value) => valueFormatter(Number(value))}
+            />
+          }
+        />
+        {categories.map((category, index) => (
+          <RechartsPrimitive.Line
+            key={category}
+            type="monotone"
+            dataKey={category}
+            stroke={colors[index % colors.length]}
+            strokeWidth={2}
+            dot={{ strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, strokeWidth: 0 }}
+          />
+        ))}
+      </RechartsPrimitive.LineChart>
+    </ChartContainer>
+  );
+};
+
+// Bar Chart Component
+interface BarChartProps {
+  data: any[];
+  categories: string[];
+  index: string;
+  colors?: string[];
+  valueFormatter?: (value: number) => string;
+  showLegend?: boolean;
+  layout?: "vertical" | "horizontal";
+}
+
+const BarChart: React.FC<BarChartProps> = ({
+  data,
+  categories,
+  index,
+  colors = ["#2563eb", "#16a34a", "#ef4444"],
+  valueFormatter = (value) => `${value}`,
+  showLegend = true,
+  layout = "horizontal",
+}) => {
+  const chartConfig: ChartConfig = React.useMemo(() => {
+    return categories.reduce((config, category, idx) => {
+      return {
+        ...config,
+        [category]: {
+          label: category,
+          color: colors[idx % colors.length],
+        },
+      };
+    }, {});
+  }, [categories, colors]);
+
+  const isVertical = layout === "vertical";
+
+  return (
+    <ChartContainer config={chartConfig} className="h-full w-full">
+      {isVertical ? (
+        <RechartsPrimitive.BarChart
+          layout={layout}
+          data={data}
+          barCategoryGap={8}
+        >
+          <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+          <RechartsPrimitive.XAxis
+            type="number"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={valueFormatter}
+          />
+          <RechartsPrimitive.YAxis
+            dataKey={index}
+            type="category"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+          />
+          {showLegend && (
+            <ChartLegend
+              content={<ChartLegendContent />}
+              verticalAlign="bottom"
+              height={40}
+            />
+          )}
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                formatter={(value) => valueFormatter(Number(value))}
+              />
+            }
+          />
+          {categories.map((category, idx) => (
+            <RechartsPrimitive.Bar
+              key={category}
+              dataKey={category}
+              fill={colors[idx % colors.length]}
+              radius={[4, 4, 0, 0]}
+            />
+          ))}
+        </RechartsPrimitive.BarChart>
+      ) : (
+        <RechartsPrimitive.BarChart data={data} barCategoryGap={8}>
+          <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+          <RechartsPrimitive.XAxis
+            dataKey={index}
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+          />
+          <RechartsPrimitive.YAxis
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={valueFormatter}
+          />
+          {showLegend && (
+            <ChartLegend
+              content={<ChartLegendContent />}
+              verticalAlign="bottom"
+              height={40}
+            />
+          )}
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                formatter={(value) => valueFormatter(Number(value))}
+              />
+            }
+          />
+          {categories.map((category, idx) => (
+            <RechartsPrimitive.Bar
+              key={category}
+              dataKey={category}
+              fill={colors[idx % colors.length]}
+              radius={[4, 4, 0, 0]}
+            />
+          ))}
+        </RechartsPrimitive.BarChart>
+      )}
+    </ChartContainer>
+  );
+};
+
 export {
   ChartContainer,
   ChartTooltip,
@@ -360,4 +570,6 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
+  LineChart,
+  BarChart
 }
